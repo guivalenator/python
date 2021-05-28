@@ -1,20 +1,19 @@
-print("ingrese la hora del dia en formato 24 horas. Pimero los minutos y luego los minutos. Ejemplo Hora: 13  Minutos")
+print("ingrese la hora en punto del dia en formato 24 horas. Ejemplo 15")
 hora=00
 
 
 try :
-    hora=int(input("ingrese la hora (00...23): "))<24
-    print(hora)
-    hora.len() ==2
-    minutos=input("ingrese minutos (00...59):")
-    int(minutos)
-    minutos.len() ==2
-
+    hora=int(input("ingrese la hora (00...23): "))
+    if hora < 24:
+        print(hora)
+    #long=hora.len() == 2
     if hora>=0 and hora<12:
         print("Buenos dias")
     elif hora >=12 and hora <=18:
         print("Buenas tardes")
-    else:
+    elif hora >=19 and hora <=23:
         print("Buenas noches")
+    else:
+        print("Debes Ingresar un numero mayor o igual a cero y menor que 23")
 except:
-    print("Formato de Hora incorrexto")
+    print("Debes ingresar numeros")
