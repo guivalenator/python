@@ -17,13 +17,13 @@ femenino=False
 
 # Salida por pantalla
 
-print("Mi nombre es:", nombre)
-print("Tengo",edad)
-print("Mi direccion es: ",direcion)
-print("Mi telefono es: ",telefono)
-print("Mi documento es: ",documento)
-print("Eres casado: ",casado)
-print("Numero de curso: ", curso)
-print("Peso actual: ",peso)
-print("Estatura en metros: ",estatura)
-print("Es mujer: ",femenino)
+print("1. Mi nombre es:", nombre)
+print("2. Tengo",edad)
+print("3. Mi direccion es: ",direcion)
+print("4. Mi telefono es: ",telefono)
+print("5. Mi documento es: ",documento)
+print("6. Eres casado: ",casado)
+print("7. Numero de curso: ", curso)
+print("8. Peso actual: ",peso)
+print("9. Estatura en metros: ",estatura)
+print("10. Es mujer: ",femenino)
