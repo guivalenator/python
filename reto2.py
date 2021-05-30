@@ -1,17 +1,41 @@
-#import os
+import os
 #RF01 Menu de Opciones
-opciones=["1. Cambiar contraseña", "2. Ingresar coordenadas actuales", "3. Ubica zona wifi más cercana","4. Guardar archivo con ubicación cercana","5. Actualizar registros de zonas wifi","6. Elegir opión de menú favorita", "7. Cerrar sesión"]
-
+opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wifi más cercana","Guardar archivo con ubicación cercana","Actualizar registros de zonas wifi","Elegir opión de menú favorita", "Cerrar sesión"]
 contactor=True
-print(len(opciones)
+j=7
 
-#def menu():
-#while True:
-#for i in range(len(opciones)):
-#    print(opciones[i])
-#break
-#   return"""
-
-#menu()
-#input("Elija una opción: ")
-#os.system("cls")
+def inicio(j):
+    os.system("cls")
+    while contactor:
+        #print(i)
+        for i in range(j):
+            print(i+1,".",opciones[i])
+        print("")
+        break
+inicio(j)
+try:
+    op=int(input("Elija una opción: "))
+    os.system("cls")
+    if op>0 and op<6:
+        print("Proceso X")
+        #inicio(j=7)
+    elif op==6:
+        os.system("cls")
+        inicio(j=4)
+        kere=int(input("Seleccione opción favorita:"))
+        k=kere
+        if k <= 5:
+            opciones.insert(0,opciones[k-1])
+            opciones.pop(k)
+            #os.system("cls")
+            inicio(i=7)
+        else:
+            print("Que vaina")
+    elif op ==7:
+        contactor=True
+        print("Gracias por utilizar esta APP")
+    else:
+        print("opcion invalida")
+except:
+    print("opcion invalida. Ingrese un numero")
+    
