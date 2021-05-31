@@ -10,7 +10,7 @@ l=None
 m=0
 
 def inicio(j):
-    os.system("cls")
+    #os.system("cls")
     while contactor:
         #print(i)
         for i in range(j):
@@ -20,37 +20,31 @@ def inicio(j):
     #menu()
 
 def favoritos(c):
+    k=0
+    l=0
     m=0
-    print(c)
     try:
-        inicio(j=4)
-        k=int(input("Seleccione opción favorita pues:"))
-        if k>0 and k<5 and c<4:
-            opciones.insert(0,opciones[k-1])
-            opciones.pop(k)
-            os.system("cls")
-            l=int(input("Para confirmar por favor responda:Si me giras pierdo tres unidades por eso debes colocarme siempre de pie, la respuesta es: "))
-            print(l)
+        while c < 3:
+            inicio(j=4)
+            k=int(input("Seleccione opción favorita pues:"))
+            if k>0 and k<5 and c<4:
+                opciones.insert(0,opciones[k-1])
+                opciones.pop(k)
+                #os.system("cls")
+                l=int(input("Para confirmar por favor responda:Si me giras pierdo tres unidades por eso debes colocarme siempre de pie, la respuesta es: "))
             if l==9:
-                print(l)
-                print(m)
                 m=int(input("Para confirmar por favor responda:Soy un numero impar y despues del 5 me encontraras...la respuesta es: "))
-                print(m)
-            elif m==7:
-                print(m)
-                #inicio(j=7)
-                print("")
-                print("Funciona con numeros <5")
+            if m==7:
+                os.system("cls")
+                c=4
+                inicio(j=7)
             else:
-                print("Error")
-                favoritos(c=c+1)
-        else:
-            print("POr aca si es")
-            c=c+1
-            favoritos(c)
+                c=c+1
+                favoritos(c)
     except:
         c=c+1
         print("Error favoritos")
+        os.system("cls")
         favoritos(c)
 
 
@@ -76,5 +70,6 @@ def menu():
     except:
         print("opcion invalida. Ingrese un numero")
 
+os.system("cls")
 inicio(j)
 menu()
