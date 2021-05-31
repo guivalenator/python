@@ -17,13 +17,14 @@ def inicio(j):
             print(i+1,".",opciones[i])
         print("")
         break
-    menu()
+    #menu()
 
-def favoritos():
+def favoritos(c):
     m=0
+    print(c)
     try:
         inicio(j=4)
-        k=int(input("Seleccione opción favorita pues:"))<5
+        k=int(input("Seleccione opción favorita pues:"))
         if k>0 and k<5 and c<4:
             opciones.insert(0,opciones[k-1])
             opciones.pop(k)
@@ -31,22 +32,26 @@ def favoritos():
             l=int(input("Para confirmar por favor responda:Si me giras pierdo tres unidades por eso debes colocarme siempre de pie, la respuesta es: "))
             print(l)
             if l==9:
+                print(l)
+                print(m)
                 m=int(input("Para confirmar por favor responda:Soy un numero impar y despues del 5 me encontraras...la respuesta es: "))
+                print(m)
             elif m==7:
-                inicio(j=7)
+                print(m)
+                #inicio(j=7)
                 print("")
-                print("Elija una opción")
+                print("Funciona con numeros <5")
             else:
-                    print("Error")
-            inicio(j=7)
+                print("Error")
+                favoritos(c=c+1)
         else:
             print("POr aca si es")
             c=c+1
-            favoritos()
+            favoritos(c)
     except:
         c=c+1
         print("Error favoritos")
-        favoritos()
+        favoritos(c)
 
 
 def menu():
@@ -58,7 +63,7 @@ def menu():
             print("Proceso X")
             #inicio(j=7)
         elif op==6:
-            favoritos()
+            favoritos(0)
             #c=0
             #os.system("cls")
             #inicio(j=4)
@@ -72,3 +77,4 @@ def menu():
         print("opcion invalida. Ingrese un numero")
 
 inicio(j)
+menu()
