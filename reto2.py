@@ -24,51 +24,54 @@ def favoritos(c):
     l=0
     m=0
     try:
-        while c < 3:
-            inicio(j=4)
-            k=int(input("Seleccione opción favorita pues:"))
-            if k>0 and k<5 and c<4:
-                opciones.insert(0,opciones[k-1])
-                opciones.pop(k)
-                #os.system("cls")
+        while c < 3 :
+            inicio(j=5)
+            k=int(input("Seleccione opción favorita"))
+            if k>0 and k<6 and c<4:
                 l=int(input("Para confirmar por favor responda:Si me giras pierdo tres unidades por eso debes colocarme siempre de pie, la respuesta es: "))
-            if l==9:
-                m=int(input("Para confirmar por favor responda:Soy un numero impar y despues del 5 me encontraras...la respuesta es: "))
-            if m==7:
-                os.system("cls")
-                c=4
-                inicio(j=7)
+                if l==9:
+                    m=int(input("Para confirmar por favor responda:Soy un numero impar y despues del 5 me encontraras...la respuesta es: "))
+                    if m==7:
+                        opciones.insert(0,opciones[k-1])
+                        opciones.pop(k)
+                        os.system("cls")
+                        inicio(j=7)
+                        input(".....")
+                        c=4
             else:
-                c=c+1
-                favoritos(c)
+                c=0
     except:
-        c=c+1
-        print("Error favoritos")
         os.system("cls")
-        favoritos(c)
-
+        inicio(j=7)
 
 def menu():
     try:
-        op=int(input("Elija una opción: "))
+        #inicio()
+        op=int(input("Elija una opción"))
         os.system("cls")
         #k=0
         if op>0 and op<6:
-            print("Proceso X")
-            #inicio(j=7)
-        elif op==6:
+            print("Usted ha elejido la opción ",op)
+            op=0
+        else:
+            os.system("cls")
+        if op==6:
+            op=0
             favoritos(0)
             #c=0
             #os.system("cls")
             #inicio(j=4)
             #k=int(input("Seleccione opción favorita:"))
-        elif op ==7:
-            contactor=True
-            print("Gracias por utilizar esta APP")
         else:
-            print("opcion invalida")
+            os.system("cls")
+        if op ==7:
+            op=0
+            contactor=True
+            print("Hasta pronto")
+        else:
+            os.system("cls")
     except:
-        print("opcion invalida. Ingrese un numero")
+        print("Error")
 
 os.system("cls")
 inicio(j)
