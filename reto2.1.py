@@ -39,9 +39,16 @@ def favoritos(c):
                         input(".....")
                         c=4
             else:
-                c=0
+                c=4
+                os.system("cls")
+                print("Error")
     except:
+        c=4
         os.system("cls")
+        print("Error")
+        os.system("cls")
+        print("Error")
+        input("...")
         inicio(j=7)
 
 def menu():
@@ -73,6 +80,9 @@ def menu():
     except:
         print("Error")
 
+input("Arrancamos")
 os.system("cls")
 inicio(j)
+input("Sigue el menu")
 menu()
+input("Fin")
