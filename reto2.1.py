@@ -3,13 +3,14 @@ import os
 opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wifi más cercana","Guardar archivo con ubicación cercana","Actualizar registros de zonas wifi","Elegir opión de menú favorita", "Cerrar sesión"]
 contactor=True
 c=0
+d=0
 i=0
 j=7
 k=None
 l=None
 m=0
 
-def inicio(j):
+def inicio(j,d):
     #os.system("cls")
     while contactor:
         #print(i)
@@ -17,7 +18,10 @@ def inicio(j):
             print(i+1,".",opciones[i])
         print("")
         break
-    #menu()
+    if d=1:
+        menu()
+    else>
+    
 
 def favoritos(c):
     k=0
@@ -38,11 +42,18 @@ def favoritos(c):
                         inicio(j=7)
                         input(".....")
                         c=4
+                    else:
+                        c=4
+                        inicio(7)
+                else:
+                    c=4
+                    inicio(7)
             else:
                 c=4
                 os.system("cls")
                 print("Error")
     except:
+        input("Excepcion")
         c=4
         os.system("cls")
         print("Error")
@@ -80,9 +91,6 @@ def menu():
     except:
         print("Error")
 
-input("Arrancamos")
 os.system("cls")
 inicio(j)
-input("Sigue el menu")
 menu()
-input("Fin")
