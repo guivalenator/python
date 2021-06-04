@@ -4,14 +4,12 @@ opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wi
 d=0
 i=0
 j=7
-#k=None
-#l=None
-#m=0
+
 c=0
 
 def inicio(j,d):
     global c
-    while c<3:
+    while c<4:
         for i in range(j):
             print(i+1,".",opciones[i])
         print("")
@@ -57,9 +55,9 @@ def favoritos(c):
         c=0
         os.system("cls")
         if l==1:
-           inicio(7,1)
+            inicio(7,1)
         elif m==1:
-           inicio(7,1)
+            inicio(7,1)
         else:
             os.system("cls")
             print("Error")
@@ -82,8 +80,7 @@ def menu():
                 if op ==7:
                     print("Hasta pronto")
                 else:
-                    input("...0")
-                    print("Error44")
+                    print("Error")
                     inicio(7,1)
     except:
         os.system("cls")
