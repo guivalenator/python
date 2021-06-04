@@ -1,78 +1,159 @@
 import os
 #RF01 Menu de Opciones
 opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wifi más cercana","Guardar archivo con ubicación cercana","Actualizar registros de zonas wifi","Elegir opión de menú favorita", "Cerrar sesión"]
-contactor=True
-c=0
-i=0
+d=0
+#i=0
 j=7
-k=None
-l=None
-m=0
+c=0
+s=0
 
-def inicio(j):
-    #os.system("cls")
-    while contactor:
-        #print(i)
-        for i in range(j):
-            print(i+1,".",opciones[i])
-        print("")
-        break
-    #menu()
+#RF01 Mensaje de Bienvenida
+saludo="""
+===========================================================
 
-def favoritos(c):
-    k=0
-    l=0
-    m=0
-    try:
-        while c < 3 :
-            inicio(j=5)
-            k=int(input("Seleccione opción favorita"))
-            if k>0 and k<6 and c<4:
-                l=int(input("Para confirmar por favor responda:Si me giras pierdo tres unidades por eso debes colocarme siempre de pie, la respuesta es: "))
-                if l==9:
-                    m=int(input("Para confirmar por favor responda:Soy un numero impar y despues del 5 me encontraras...la respuesta es: "))
-                    if m==7:
-                        opciones.insert(0,opciones[k-1])
-                        opciones.pop(k)
-                        os.system("cls")
-                        inicio(j=7)
-                        input(".....")
-                        c=4
+Bienvenido al sistema de Ubicación para zonas públicas WIFI
+
+===========================================================
+"""
+print(saludo)
+
+#RF02 Nombre de usuario y contraseña
+usuario="51675"
+passwd="57615"
+
+user_ing=input("Ingrese su usuario: ")
+passwd_ing=None
+
+if user_ing==usuario:
+    passwd_ing=input("Ingrese contaseña: ")
+    if   passwd_ing==passwd:
+        #RF03 Resolucion del captcha 
+        print("Calcule y digite el resultado de la siguiente operacion:")
+        r=None
+        t1=675
+        t2=int((6+1)-(5%5))
+
+        print(t1, "+", t2,"=")
+        #r=input()
+        try:
+            r=int(input())
+            #r=int(r)
+            if r==t1+t2:
+                # RF04 Confirmacion de ingreso al sistema
+                os.system ("clear") 
+                print("Sesión iniciada")
+#Inicio Reto 2                
+                def inicio(j,d):
+                    global c
+                    while c<4:
+                        for i in range(j):
+                            print(i+1,".",opciones[i])
+                        print("")
+                        if d==1:
+                            c+=1
+                            menu()
+                        else:
+                            h=0
+                        break
+
+                #RF02 Menu Favoritos
+                def favoritos(c):
+                    try:
+                        inicio(5,0)
+                        #RF04 Opciones menu Favoritos
+                        k=int(input("Seleccione opción favorita"))
+                        if k>0 and k<6 and c<4:
+                            c=0
+                            l=1
+                            l=int(input("Para confirmar por favor responda:Soy un numero impar y despues del 5 me encontraras...la respuesta es: "))
+                            if l==7:
+                                m=1
+                                m=int(input("Para confirmar por favor responda:Soy un numero impar y antes del 7 me encontraras...la respuesta es: "))
+                                if m==5:
+                                    opciones.insert(0,opciones[k-1])
+                                    opciones.pop(k)
+                                    os.system("clear")
+                                    c=0
+                                    inicio(7,1)
+                                else:
+                                    c=0
+                                    os.system("clear")
+                                    print("Error")  
+                                    inicio(7,1)
+                            else:
+                                os.system("clear")
+                                print("Error")    
+                                c=0
+                                inicio(7,1)
+                        else:
+                            c=0
+                            os.system("clear")
+                            print("Error")
+                            inicio(7,1)
+                    except:
+                        c=0
+                        os.system("clear")
+                        if l==1:
+                            print("Error")
+                            inicio(7,1)
+                        elif m==1:
+                            print("Error")
+                            inicio(7,1)
+                        else:
+                            os.system("clear")
+                            print("Error")
+                #RF03 Menu Principal
+                def menu():
+                    try:
+                        global s
+                        global c
+                        s=1
+                        op=int(input("Elija una opción"))
+                        print("")
+                        if op>0 and op<6:
+                            c=0
+                            os.system("clear")
+                            print("Usted ha elegido la opción",op)
+                        else:
+                            #os.system("clear")
+                            if op==6:
+                                c=0
+                                s=0
+                                os.system("clear")
+                                favoritos(0)
+                                os.system("exit")
+                            else:
+                                #RF05: El programa permite al usuario salir del menú
+                                os.system("clear")
+                                if op ==7:
+                                    print("Hasta pronto")
+                                else:
+                                    print("Error")
+                                    inicio(7,1)
+                    except:
+                            if s==0:
+                                print("Error")
+                                exit()
+                            else:
+                                os.system("clear")
+                                print("Error")
+                                inicio(7,1)
+#Fin Reto 2
             else:
-                c=0
-    except:
-        os.system("cls")
-        inicio(j=7)
+                    os.system ("clear") 
+                    print("Error")
 
-def menu():
-    try:
-        #inicio()
-        op=int(input("Elija una opción"))
-        os.system("cls")
-        #k=0
-        if op>0 and op<6:
-            print("Usted ha elejido la opción ",op)
-            op=0
-        else:
-            os.system("cls")
-        if op==6:
-            op=0
-            favoritos(0)
-            #c=0
-            #os.system("cls")
-            #inicio(j=4)
-            #k=int(input("Seleccione opción favorita:"))
-        else:
-            os.system("cls")
-        if op ==7:
-            op=0
-            contactor=True
-            print("Hasta pronto")
-        else:
-            os.system("cls")
-    except:
+        except:
+            os.system ("clear") 
+            print("Error")
+    else:
+        os.system ("clear")
         print("Error")
+                
+else:
+    os.system ("clear") 
+    print("Error")
+    
 
-os.system("cls")
-inicio(j)
-menu()
+os.system("clear")
+inicio(7,1)
