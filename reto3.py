@@ -17,6 +17,19 @@ Bienvenido al sistema de Ubicación para zonas públicas WIFI
 """
 print(saludo)
 
+def pass_change():
+    global passwd
+    actual_pass=input("Ingrese la contraseña actual: ")
+    if passwd==actual_pass:
+        new_pass=input("Ingrese la nueva contraseña: ")
+        if new_pass == passwd:
+            exit()
+        else:
+            passwd=new_pass
+            inicio(7,1)
+    else:
+        exit()
+
 #RF02 Nombre de usuario y contraseña
 usuario="51675"
 passwd="57615"
@@ -40,7 +53,7 @@ if user_ing==usuario:
             #r=int(r)
             if r==t1+t2:
                 # RF04 Confirmacion de ingreso al sistema
-                os.system ("clear") 
+                os.system ("cls") 
                 print("Sesión iniciada")
 #Inicio Reto 2                
                 def inicio(j,d):
@@ -72,27 +85,27 @@ if user_ing==usuario:
                                 if m==5:
                                     opciones.insert(0,opciones[k-1])
                                     opciones.pop(k)
-                                    os.system("clear")
+                                    os.system("cls")
                                     c=0
                                     inicio(7,1)
                                 else:
                                     c=0
-                                    os.system("clear")
+                                    os.system("cls")
                                     print("Error")  
                                     inicio(7,1)
                             else:
-                                os.system("clear")
+                                os.system("cls")
                                 print("Error")    
                                 c=0
                                 inicio(7,1)
                         else:
                             c=0
-                            os.system("clear")
+                            os.system("cls")
                             print("Error")
                             inicio(7,1)
                     except:
                         c=0
-                        os.system("clear")
+                        os.system("cls")
                         if l==1:
                             print("Error")
                             inicio(7,1)
@@ -100,7 +113,7 @@ if user_ing==usuario:
                             print("Error")
                             inicio(7,1)
                         else:
-                            os.system("clear")
+                            os.system("cls")
                             print("Error")
                 #RF03 Menu Principal
                 def menu():
@@ -112,19 +125,20 @@ if user_ing==usuario:
                         print("")
                         if op>0 and op<6:
                             c=0
-                            os.system("clear")
+                            os.system("cls")
                             print("Usted ha elegido la opción",op)
+                            pass_change()
                         else:
-                            #os.system("clear")
+                            #os.system("cls")
                             if op==6:
                                 c=0
                                 s=0
-                                os.system("clear")
+                                os.system("cls")
                                 favoritos(0)
                                 os.system("exit")
                             else:
                                 #RF05: El programa permite al usuario salir del menú
-                                os.system("clear")
+                                os.system("cls")
                                 if op ==7:
                                     print("Hasta pronto")
                                 else:
@@ -135,25 +149,25 @@ if user_ing==usuario:
                                 print("Error")
                                 exit()
                             else:
-                                os.system("clear")
+                                os.system("cls")
                                 print("Error")
                                 inicio(7,1)
 #Fin Reto 2
             else:
-                    os.system ("clear") 
+                    os.system ("cls") 
                     print("Error")
 
         except:
-            os.system ("clear") 
+            os.system ("cls") 
             print("Error")
     else:
-        os.system ("clear")
+        os.system ("cls")
         print("Error")
                 
 else:
-    os.system ("clear") 
+    os.system ("cls") 
     print("Error")
     
 
-os.system("clear")
+os.system("cls")
 inicio(7,1)
