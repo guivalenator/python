@@ -101,7 +101,7 @@ if user_ing==usuario:
                         op=int(input("Elija una opción"))
                         os.system("cls")
                         if op>0 and op<6:
-                            print("Usted ha elejido la opción ",op)
+                            print("Usted ha elegido la opción",op)
                             op=0
                         else:
                             #os.system("cls")
