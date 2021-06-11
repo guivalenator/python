@@ -151,17 +151,40 @@ def favoritos(c):
 
 def coordenadas():
     filas=3
-    columnas=2
-    coord=[[None]* columnas for i in range(filas)]
-    in_lat=input("Ingrese Latitud: ")
-    if in_lat.isnumeric==True:
-        round(float(in_lat),3)
-        lat=float(in_lat)
-        print(lat)
-    else:
-        print("Formato errado")
-
-    lon=input("Ingrese Longitud")
+    columnas=1
+    #coord=[[]*filas for i in range(columnas)]
+    coord=[]
+    print(coord)
+    for i in range(filas):
+        coord.append([])
+        for j in range(columnas):
+            lat=input("Ingrese Latitud: ")
+            if (len(lat)>=5 and len(lat)<=7) and lat!="" and lat.isalpha()== False and lat.count(".")==1:
+                indice=lat.find(".")
+                decimales=lat[indice+1:len(lat)]
+                entero=lat[0:indice]
+                if len(decimales)==3 and decimales.isnumeric()==True and entero.isnumeric()==True:
+                    lat=entero+"."+decimales
+                    if float(lat)>= 9.757 and float(lat) <=10.462 and lat != "":
+                        coord[i].append(lat)
+                        lon=(input("Ingrese Longitud: "))
+                        if len(lon)==7 and lon!="" and lon.isalpha()== False and lon.count(".")==1:
+                            indice=lat.find(".")
+                            decimales=lon[indice+1:len(lon)]
+                            entero=lon[0:indice]
+                            if len(decimales)==3 and decimales.isnumeric()==True and entero.isnumeric()==True:
+                                lon=entero+"."+decimales
+                        if float(lon)>=-73.623 and float(lon)<=-72.987:
+                            print("entró")
+                            coord[i].append(lon)
+                        else:
+                            print("Error coordenada")
+                    else:
+                        print("Error coordenada")
+                else:
+                    print("Error coordenadas")
+            else:
+                print("Error coordenadas")
     print(coord)
 
 def pass_change():
