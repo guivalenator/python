@@ -1,11 +1,12 @@
 import os
 from typing import Dict
 import ast
+import math
 #RF01 Menu de Opciones
 opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wifi más cercana","Guardar archivo con ubicación cercana","Actualizar registros de zonas wifi","Elegir opión de menú favorita", "Cerrar sesión"]
 
 #Variables globales
-llenado=0
+llenado=1
 d=0
 a=0
 b=7
@@ -13,10 +14,16 @@ c=0
 s=0
 
 #Declaracion y llenao con ceros de la matriz (lista de listas)
-#coord=[['1.740', '-75.950'], ['1.880', '-75.950'], ['1.940', '-75.950']]
 coord=[]
 for i in range(3):
     coord.append([0]*2)
+coord=[['1.740', '-75.950'], ['1.880', '-75.950'], ['1.940', '-75.950']]
+
+zona_wifi=[]
+for i in range(4):
+    zona_wifi.append([0]*3)
+zona_wifi=[['1.811', '-75.820', '58'], ['1.919', '-75.843', '1290'], ['1.875', '-75.877', '110'], ['1.938', '-75.764', '114']]
+
 
 #Funcion de login
 def login():
@@ -141,12 +148,12 @@ def ingre():
         update_coord()
 
 #Funcion para ingresar y actualizar coordenadas
-def update_coord(fil=3,col=1,ini=0):
+def update_coord(fil=3,col=1,ini=0,wifi=0):
     global llenado
     llenado=0
     for i in range(ini,fil):
-        for j in range(col):
-            lat=input("Ingrese Latitud: ")
+        for j in range(col):#La iteracione de este ciclo es solo una ya que se ingresan de una vez los datos en su respectiva columna 
+            lat=input(f"Ingrese latitud de la coordenada {i+1}: ")
             if (len(lat)>=5 and len(lat)<=7) and lat!="" and lat.isalpha()== False and lat.count(".")==1:
                 indice=lat.find(".")
                 decimales=lat[indice+1:len(lat)]
@@ -155,7 +162,7 @@ def update_coord(fil=3,col=1,ini=0):
                     lat=entero+"."+decimales
                     if float(lat)>= 1.740 and float(lat) <=1.998 and lat != "":
                         #Ingreso y validacion de la longitud
-                        lon=input("Ingrese Longitud: ")
+                        lon=input(f"Ingrese longitud de la coordenada {i+1}: ")
                         if len(lon)==7 and lon!="" and lon.isalpha()== False and lon.count(".")==1:
                             indice=lon.find(".")#Ubica la posicion del punto en la cadena
                             decimales=lon[indice+1:len(lon)]#Extrae los caracteres despues del punto
@@ -163,8 +170,20 @@ def update_coord(fil=3,col=1,ini=0):
                             if len(decimales)==3 and decimales.isnumeric()==True:# valida la cantidad de decimales, que la cadena sea numerica
                                 lon=entero+"."+decimales#concatena parte entera y decimal
                                 if float(lon)>= -75.950 and float(lon)<=-75.689:
-                                    coord[i][j]=lat
-                                    coord[i][j+1]=lon
+                                    if wifi==0:
+                                        coord[i][j]=lat
+                                        coord[i][j+1]=lon
+                                    else:
+                                        print(zona_wifi)
+                                        conexiones=input(f"Ingrese usuarios conectados en la coordenada {i+1}: ")
+                                        print(i,j)
+                                        zona_wifi[i][j]=lat
+                                        print(i,j+1)
+                                        zona_wifi[i][j+1]=lon
+                                        print(i,j+2)
+                                        zona_wifi[i][j+2]=conexiones
+                                        print(zona_wifi)
+
                                 else:
                                     print("Error coordenada")
                                     exit()
@@ -187,7 +206,51 @@ def update_coord(fil=3,col=1,ini=0):
 
 #Funcion ubicacion zona wifi
 def ubica():
-    print("usted ha elegido la opción: ",opciones.index("Ubica zona wifi más cercana")+1)
+    if llenado==0:
+        print("Error sin registro de coordenadas")
+        exit()
+    else:
+        print("coordenada [latitud,longitud] 1 :",coord[0])
+        print("coordenada [latitud,longitud] 2 :",coord[1])
+        print("coordenada [latitud,longitud] 3 :",coord[2])
+        
+        op=input("Por favor elija su ubicación actual (1,2 ó 3) para calcular la distancia a los puntos deconexión: ")
+        if op =="1":
+            lat1=float(coord[0][0])
+            lon1=float(coord[0][1])
+            cercana(lat1,lon1)
+        elif op =="2":
+            update_coord(2,1,1)
+        elif op=="3":
+            update_coord(3,1,2)
+        else:
+            print("Error ubicación")
+            os.system("exit")
+
+def cercana(lat1, lon1):
+    rad=6372.795477598
+    print(type(rad))
+    puntos=[]
+    for i in range(2):
+        print(zona_wifi[i][i])
+        lat2=float(zona_wifi[i][i])
+        lon2=float(zona_wifi[i][i+1])
+        Alat=lat2-lat1
+        Alon=lon2-lon1
+        raiz=math.sqrt(math.pow(2,math.asin((Alat/2)))+math.cos(lat1)*math.cos(lat2)*pow(2,math.sin(Alon/2)))
+        print(raiz)
+        dist=math.asin(raiz)
+        puntos.append(dist)
+        puntos.append(zona_wifi[i+2])
+
+
+
+
+    print("Zonas wifi cercanas con menos usuario")
+    print(f"La zona wifi {i+1}: ubicada en {i+1} a {dist} metros, tiene en promedio {i+1} usuarios")
+    print(f"La zona wifi {i+1}: ubicada en {i+1} a {i+1} metros, tiene en promedio {i+1} usuarios")
+    op=input("Elija 1 o 2 para recibir indicaciones de llegada")
+
 
 #Funcion guardar ubicacion
 def guard():
@@ -257,4 +320,5 @@ def cerra():
     exit()
 
 #Inicio del programa
-login()
+#login()
+menu()
