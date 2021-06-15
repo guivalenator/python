@@ -6,11 +6,7 @@ opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wi
 
 #Variables globales
 llenado=0
-d=0
-a=0
-b=7
 c=0
-s=0
 
 #Declaracion y llenao con ceros de la matriz (lista de listas)
 #coord=[['1.740', '-75.950'], ['1.880', '-75.950'], ['1.940', '-75.950']]
