@@ -239,20 +239,15 @@ def cercana(lat1, lon1):
             lat2=float(zona_wifi[i][j])
             lon2=float(zona_wifi[i][j+1])
             Alat=lat1-lat2
-            Alon=lon1-lon2
-                      #d = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
-            dist = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(lon2-lon1)/2)**2))
-            #dist=2*rad*math.asin(math.sqrt(math.sin(math.pow((Alat/2),2))+math.cos(lat1)*math.cos(lat2)*math.sin(math.pow((Alon/2),2))))
+            Alon=lon1-lon2       
+            dist = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(lon2-lon1)/2)**2)) #d = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
             #dist=2*r*math.asin(math.sqrt(math.pow(math.sin(c*(Alat/2)),2))+(math.cos(c*lat1)*math.cos(c*lat2)*(math.pow(math.sin(c*(Alon/2)),2))))
-            #print(dist)#5
-            
-
-            usuarios=zona_wifi[i][j+2]
+ 
             puntos[i].append(i+0)
             puntos[i].append(zona_wifi[i][j])
             puntos[i].append(zona_wifi[i][j+1])
             puntos[i].append(dist)
-            puntos[i].append(usuarios)
+            puntos[i].append(zona_wifi[i][j+2])
             print("\n")
             
 
