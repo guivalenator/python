@@ -80,6 +80,7 @@ opciones={
     }
 
 def choice(op):
+    print(opciones)
     func=opciones.get(op, salir)
     return func()
 
