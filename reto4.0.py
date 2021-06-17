@@ -3,6 +3,7 @@ from typing import Dict
 import ast
 import math
 from math import *
+
 #RF01 Menu de Opciones
 opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wifi más cercana","Guardar archivo con ubicación cercana","Actualizar registros de zonas wifi","Elegir opión de menú favorita", "Cerrar sesión"]
 
@@ -315,8 +316,25 @@ def guard():
 
 #Funcion actualizar
 def actua():
-    print("usted ha elegido la opción: ",opciones.index("Actualizar registros de zonas wifi")+1)
+    l=[]
+    global j
+    j=0
 
+    f = open("zona_wifi.txt", "r")
+    
+    for i in range(1):
+        while(True):
+            l.append([])
+            linea = f.readline().strip("\n")
+            l[i].append(linea)
+            i+=1
+            print(linea)
+            if not linea:
+                break
+    
+    f.close()
+    print(l)
+    
 #Funcion de Favoritos
 def elegi(c=0):
     os.system("cls")
