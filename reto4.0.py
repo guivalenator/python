@@ -2,6 +2,7 @@ import os
 from typing import Dict
 import ast
 import math
+from math import *
 #RF01 Menu de Opciones
 opciones=["Cambiar contraseña", "Ingresar coordenadas actuales", "Ubica zona wifi más cercana","Guardar archivo con ubicación cercana","Actualizar registros de zonas wifi","Elegir opión de menú favorita", "Cerrar sesión"]
 
@@ -206,47 +207,106 @@ def ubica():
         print("Error sin registro de coordenadas")
         exit()
     else:
+        os.system("cls")
         print("coordenada [latitud,longitud] 1 :",coord[0])
         print("coordenada [latitud,longitud] 2 :",coord[1])
         print("coordenada [latitud,longitud] 3 :",coord[2])
-        
+        print("\n")
         op=input("Por favor elija su ubicación actual (1,2 ó 3) para calcular la distancia a los puntos deconexión: ")
         if op =="1":
             lat1=float(coord[0][0])
             lon1=float(coord[0][1])
-            cercana(lat1,lon1)
+            cercana(lat1,lon1,ubi=1)
         elif op =="2":
-            update_coord(2,1,1)
+            lat1=float(coord[1][0])
+            lon1=float(coord[1][1])
+            cercana(lat1,lon1,ubi=2)
         elif op=="3":
-            update_coord(3,1,2)
+            lat1=float(coord[2][0])
+            lon1=float(coord[2][1])
+            cercana(lat1,lon1,ubi=3)
         else:
             print("Error ubicación")
             os.system("exit")
 
-def cercana(lat1, lon1):
-    rad=6372.795477598
+def cercana(lat1, lon1, ubi):
+    c=math.pi/180
+    r=6372.795477598
     puntos=[]
-    for i in range(2):
+    for i in range(3):
+        puntos.append([])
         for j in range(1):
             lat2=float(zona_wifi[i][j])
-            print(zona_wifi[i][j])#1
-            print(lat1)#2
             lon2=float(zona_wifi[i][j+1])
-            print(zona_wifi[i][j+1])#3
-            print(lon1)#4
-            Alat=lat2-lat1
-            Alon=lon2-lon1
-            #d = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
-            #dist=2*rad*math.asin(math.sqrt(math.sin(math.pow((Alat/2),2))+math.cos(lat1)*math.cos(lat2)*math.sin(math.pow((Alon/2),2))))
-            dist=2*rad*math.asin(math.sqrt(math.pow(math.sin((Alat/2)),2))+math.cos(lat1)*math.cos(lat2)*(math.pow(math.sin((Alon/2)),2)))
-            print(dist)#5
-            puntos.append(dist)
-            print(puntos)#6
+            Alat=lat1-lat2
+            Alon=lon1-lon2       
+            dist = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(lon2-lon1)/2)**2)) #d = 2*r*asin(sqrt(sin(c*(lat2-lat1)/2)**2 + cos(c*lat1)*cos(c*lat2)*sin(c*(long2-long1)/2)**2))
+            #dist=2*r*math.asin(math.sqrt(math.pow(math.sin(c*(Alat/2)),2))+(math.cos(c*lat1)*math.cos(c*lat2)*(math.pow(math.sin(c*(Alon/2)),2))))
+ 
+            puntos[i].append(i+0)
+            puntos[i].append(zona_wifi[i][j])
+            puntos[i].append(zona_wifi[i][j+1])
+            puntos[i].append(dist)
+            puntos[i].append(zona_wifi[i][j+2])
+            print("\n")
+            
 
+
+    ordenada=sorted(puntos, key=lambda x: x[3])
+    conexiones=[]
+    for i in range(2):
+        conexiones.append([])
+        for j in range(5):
+            conexiones[i].append(ordenada[i][j])
+            
+    final=sorted(conexiones, key=lambda x: x[4])
+    
+    print(final)
     print("Zonas wifi cercanas con menos usuario")
-    print(f"La zona wifi {i+1}: ubicada en {i+1} a {dist} metros, tiene en promedio {i+1} usuarios")
-    print(f"La zona wifi {i+1}: ubicada en {i+1} a {i+1} metros, tiene en promedio {i+1} usuarios")
+    print(f"La zona wifi {i+0}: ubicada en {final[0][1]},{final[0][2]} a {final[0][3]*1000:3f} metros, tiene en promedio {final[0][4]} usuarios")
+    print(f"La zona wifi {i+1}: ubicada en {final[1][1]},{final[1][2]} a {final[1][3]*10003:3f} metros, tiene en promedio {final[1][4]} usuarios")
+    print("\n")
+    
     op=input("Elija 1 o 2 para recibir indicaciones de llegada")
+    if op =="1" :
+        lat_wifi_1=final[0][1]
+        lon_wifi_1=final[0][2]
+        print(lat1)
+        print(lon1)
+        print(lat_wifi_1)
+        print(lon_wifi_1)
+        if lat1>float(lat_wifi_1) and lon1>float(lon_wifi_1):
+            print("Para llegar a la zona wifi dirigirse primero al sur y luego hacia el oriente")
+        elif lat1 > float(lat_wifi_1) and lon1<float(lon_wifi_1):
+            print("Para llegar a la zona wifi dirigirse primero al sur y luego hacia el occidente")
+        elif lat1 < float(lat_wifi_1) and lon1>float(lon_wifi_1):
+            print("Para llegar a la zona wifi dirigirse primero al oriente y luego hacia el norte")
+        else:
+            print("Para llegar a la zona wifi dirigirse primero al occidente y luego hacia el norte")
+        tiempo_moto=(final[0][3]*1000)/19.44
+        tiempo_a_pie=(final[0][3]*1000)/0.483
+        print(f"Tiempo promedio en moto {tiempo_moto}")
+        print(f"Tiempo promedio a pie {tiempo_a_pie}")
+    elif op=="2":
+        lat_wifi_1=final[1][1]
+        lon_wifi_1=final[1][2]
+        print(lat1)
+        print(lon1)
+        print(lat_wifi_1)
+        print(lon_wifi_1)
+        if lat1>float(lat_wifi_1) and lon1>float(lon_wifi_1):
+            print("Para llegar a la zona wifi dirigirse primero al sur y luego hacia el occidente")
+        elif lat1 > float(lat_wifi_1) and lon1<float(lon_wifi_1):
+            print("Para llegar a la zona wifi dirigirse primero al sur y luego hacia el oriente")
+        elif lat1 < float(lat_wifi_1) and lon1>float(lon_wifi_1):
+            print("Para llegar a la zona wifi dirigirse primero al oriente y luego hacia el norte")
+        else:
+            print("Para llegar a la zona wifi dirigirse primero al occidente y luego hacia el norte")
+
+        print("Tiempo a pie")
+    else:
+        print("Error zona wifi")
+        os.system("exit")
 
 
 #Funcion guardar ubicacion
